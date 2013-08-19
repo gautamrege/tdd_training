@@ -1,15 +1,32 @@
 require './hangman.rb'
 
+
 describe Hangman do
-  context "start-up" do
-    it "should have a word to play with"
-    it "should show the empty word placeholders"
-    it "should show the empty missed placeholders"
-    it "should have missed_counter set to 0"
-    it "should have word_counter set to 0"
+  subject(:hangman) { Hangman.new("elephantisis") }
+
+  context "#initialize" do
+    it "should not be able to access the word" do
+      expect { hangman.word }.to raise_error NoMethodError
+    end
+
+    it "should show the empty word placeholders" do
+      expect(hangman.word_placeholders).to be_empty
+    end
+
+    it "should show the empty missed placeholders" do
+      expect(hangman.missing_placeholders).to be_empty
+    end
+
+    it "should have missed_counter set to 0" do
+      expect(hangman.missing_counter).to eq(0)
+    end
+
+    it "should have word_counter set to 0" do
+      expect(hangman.word_counter).to eq(0)
+    end
   end
 
-  context "play" do
+  context ".play" do
     it "should accept only one character at a time"
     it "should ask for next character if missed_counter < 6 and word_counter < word count"
 
@@ -33,7 +50,7 @@ describe Hangman do
     end
   end
 
-  context "result" do
+  context ".result" do
     context "win" do
       it "should have word_counter equal to the word placeholders count"
       it "should have missed_counter < 6"
