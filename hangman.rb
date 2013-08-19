@@ -1,5 +1,5 @@
 class Hangman
-  attr_reader :word_counter, :missing_counter, :word_placeholders, :missing_placeholders
+  attr_reader :word_counter, :missing_counter, :word_placeholders, :missing_placeholders, :input
 
   def initialize(word)
     @word = word
@@ -8,4 +8,12 @@ class Hangman
     @word_placeholders = []
     @missing_placeholders = []
   end
+
+  def play(input)
+    @input = input.strip[0]
+    raise HangmanInvalidInput unless @input =~ /^[a-zA-z]$/
+  end
+end
+
+class HangmanInvalidInput < Exception
 end

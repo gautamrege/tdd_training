@@ -27,8 +27,25 @@ describe Hangman do
   end
 
   context ".play" do
-    it "should accept only one character at a time"
-    it "should ask for next character if missed_counter < 6 and word_counter < word count"
+    context 'valid input' do
+      it "should accept only first character" do
+        hangman.play('abc')
+        expect(hangman.input).to eq('a')
+      end
+
+      it "should have first character as valid alphabet" do
+        hangman.play('a12')
+        expect(hangman.input).to eq('a')
+      end
+
+      it "should should accept only characters" do
+        expect { hangman.play('1') }.to raise_error HangmanInvalidInput
+      end
+
+      it "should should accept only characters" do
+        expect { hangman.play('$') }.to raise_error HangmanInvalidInput
+      end
+    end
 
     context "for correct choice" do
       it "should update all the word placeholders if that character occurs more than once"
