@@ -48,10 +48,25 @@ describe Hangman do
     end
 
     context "for correct choice" do
-      it "should update all the word placeholders if that character occurs more than once"
-      it "should increment the word_counter for the count of placeholders updated"
-      it "should not change the missed_counter"
-      it "should not update the missed placeholders"
+      before(:each) do
+        hangman.play('e')
+      end
+
+      it "should update all the word placeholders if that character occurs more than once" do
+        expect(hangman.word_placeholders).to eq( %w(e _ e _ _ _ _ _ _ _ _ _ ) )
+      end
+
+      it "should increment the word_counter for the count of placeholders updated" do
+        expect(hangman.word_counter).to eq(2)
+      end
+
+      it "should not change the missing_counter" do
+        expect(hangman.missing_counter).to eq(0)
+      end
+
+      it "should not update the missed placeholders" do
+        expect(hangman.missing_placeholders).to be_empty
+      end
     end
 
     context "for wrong choice" do
