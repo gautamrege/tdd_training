@@ -1,5 +1,5 @@
 class Hangman
-  attr_reader :word_counter, :missing_counter, :word_placeholders, :missing_placeholders, :input
+  attr_reader :word_counter, :missing_counter, :word_placeholders, :missing_placeholders, :input, :result
 
   def initialize(word)
     @word = word
@@ -26,8 +26,13 @@ class Hangman
       @missing_placeholders << @input
       @missing_counter += 1
     end
+
+    # Check for result
+    @result = "You lose!" if @missing_counter == 6
+    @result = "You win!" if @word_counter == @word_placeholders.size 
   end
 end
 
 class HangmanInvalidInput < Exception
 end
+

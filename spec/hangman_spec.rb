@@ -121,13 +121,52 @@ describe Hangman do
 
   context ".result" do
     context "win" do
-      it "should have word_counter equal to the word placeholders count"
-      it "should have missed_counter < 6"
+      before(:each) do
+        hangman.play('e')
+        hangman.play('l')
+        hangman.play('p')
+        hangman.play('h')
+        hangman.play('a')
+        hangman.play('n')
+        hangman.play('t')
+        hangman.play('i')
+        hangman.play('s')
+      end
+
+      it "should have word_counter equal to the word placeholders count" do
+        expect(hangman.word_counter).to eq(hangman.word_placeholders.size)
+      end
+
+      it "should have missing_counter < 6" do
+        expect(hangman.missing_counter).to be < 6
+      end
+
+      it "should have result as 'You win!'" do
+        expect(hangman.result).to eq('You win!')
+      end
     end
 
     context "lose" do
-      it "should have word_counter < than word placeholders count"
-      it "should have missed_counter equal to 6"
+      before(:each) do
+        hangman.play('z')
+        hangman.play('q')
+        hangman.play('m')
+        hangman.play('u')
+        hangman.play('w')
+        hangman.play('o')
+      end
+
+      it "should have word_counter < than word placeholders count" do
+        expect(hangman.word_counter).to be < hangman.word_placeholders.size
+      end
+
+      it "should have missing_counter equal to 6" do
+        expect(hangman.missing_counter).to eq(6)
+      end
+
+      it "should have result as 'You lose!'" do
+        expect(hangman.result).to eq('You lose!')
+      end
     end
   end
 end
