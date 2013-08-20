@@ -36,15 +36,17 @@ end
 class HangmanInvalidInput < Exception
 end
 
-game = Hangman.new('elephantisis')
-while(!game.result) do
-  begin
-    puts ''
-    puts "Word: #{game.word_placeholders}"
-    game.play(gets)
-    puts "Missed: #{game.missing_placeholders}"
-  rescue HangmanInvalidInput
-    puts "Wtf - invalid input.. try again"
+def game_play
+  game = Hangman.new('elephantisis')
+  while(!game.result) do
+    begin
+      puts ''
+      puts "Word: #{game.word_placeholders}"
+      game.play(gets)
+      puts "Missed: #{game.missing_placeholders}"
+    rescue HangmanInvalidInput
+      puts "Wtf - invalid input.. try again"
+    end
   end
+  p game.result
 end
-p game.result
