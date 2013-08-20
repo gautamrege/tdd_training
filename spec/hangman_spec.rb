@@ -10,7 +10,7 @@ describe Hangman do
     end
 
     it "should show the empty word placeholders" do
-      expect(hangman.word_placeholders).to be_empty
+      expect(hangman.word_placeholders).to eq( %w( _ _ _ _ _ _ _ _ _ _ _ _) )
     end
 
     it "should show the empty missed placeholders" do
@@ -70,10 +70,25 @@ describe Hangman do
     end
 
     context "for wrong choice" do
-      it "should increment the missed chances counter"
-      it "should show the missed character in the missed placeholder"
-      it "should not change the word_counter"
-      it "should not update the word placeholders"
+      before(:each) do
+        hangman.play('x')
+      end
+
+      it "should increment the missing_counter" do
+        expect(hangman.missing_counter).to eq(1)
+      end
+
+      it "should show the missed character in the missing_placeholders" do
+        expect(hangman.missing_placeholders).to eq( %w(x) )
+      end
+
+      it "should not change the word_counter" do
+        expect(hangman.word_counter).to eq(0)
+      end
+
+      it "should not update the word placeholders" do
+        expect(hangman.word_placeholders).to eq( %w( _ _ _ _ _ _ _ _ _ _ _ _) )
+      end
     end
 
     context "for repeated character" do

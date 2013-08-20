@@ -13,13 +13,17 @@ class Hangman
     @input = input.strip[0]
     raise HangmanInvalidInput unless @input =~ /^[a-zA-z]$/
 
-    @word.split('').each_with_index do |c, index|
-      if c == input
-        @word_placeholders[index] = input 
-        @word_counter += 1
+    if @word.include?(@input) # Character is present in the word
+      @word.split('').each_with_index do |c, index|
+        if c == input
+          @word_placeholders[index] = input 
+          @word_counter += 1
+        end
       end
+    else # Charactor is not present in the word
+      @missing_placeholders << @input
+      @missing_counter += 1
     end
-    
   end
 end
 
