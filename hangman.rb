@@ -17,8 +17,8 @@ class Hangman
 
     if @word.include?(@input) # Character is present in the word
       @word.split('').each_with_index do |c, index|
-        if c == input
-          @word_placeholders[index] = input 
+        if c == @input
+          @word_placeholders[index] = @input 
           @word_counter += 1
         end
       end
@@ -36,3 +36,15 @@ end
 class HangmanInvalidInput < Exception
 end
 
+game = Hangman.new('elephantisis')
+while(!game.result) do
+  begin
+    puts ''
+    puts "Word: #{game.word_placeholders}"
+    game.play(gets)
+    puts "Missed: #{game.missing_placeholders}"
+  rescue HangmanInvalidInput
+    puts "Wtf - invalid input.. try again"
+  end
+end
+p game.result
