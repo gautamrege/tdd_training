@@ -92,8 +92,30 @@ describe Hangman do
     end
 
     context "for repeated character" do
-      it "should not update the word placeholders"
-      it "should not update the missed placeholders"
+      before(:each) do
+        hangman.play('e')
+        hangman.play('x')
+
+        # and again
+        hangman.play('e')
+        hangman.play('x')
+      end
+
+      it "should not update the word_placeholders again" do
+        expect(hangman.word_placeholders).to eq( %w(e _ e _ _ _ _ _ _ _ _ _ ) )
+      end
+
+      it "should not update the missing_placeholders again" do
+        expect(hangman.missing_placeholders).to eq( %w(x) )
+      end
+
+      it "should not increment the missing_counter" do
+        expect(hangman.missing_counter).to eq(1)
+      end
+
+      it "should not update the word_counter" do
+        expect(hangman.word_counter).to eq(2)
+      end
     end
   end
 

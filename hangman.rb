@@ -12,6 +12,8 @@ class Hangman
   def play(input)
     @input = input.strip[0]
     raise HangmanInvalidInput unless @input =~ /^[a-zA-z]$/
+  
+    return if @word_placeholders.include?(@input) or @missing_placeholders.include?(@input)
 
     if @word.include?(@input) # Character is present in the word
       @word.split('').each_with_index do |c, index|
